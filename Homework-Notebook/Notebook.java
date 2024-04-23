@@ -83,13 +83,6 @@ public class Notebook {
 
     
     public boolean isInclude(Map<Integer, String> obj) {
-        // if (this == obj) {
-        //     return true;
-        // }
-        // if (obj == null || getClass() != obj.getClass()) {
-        //     return false;
-        // }
-        //Notebook notebook = (Notebook) obj;
         boolean isEqual = true;
         Map<Integer, String> map = createParamMap();
         //Map<Integer, String> map2 = notebook.createParamMap();
@@ -104,7 +97,7 @@ public class Notebook {
         if ((obj.get(2) != null) && (Integer.parseInt(obj.get(2)) <= hdd)) {
             isEqual = true;
         }
-        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(2)) <= sceenDiag)) {
+        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(5)) <= sceenDiag)) {
             isEqual = true;
         }
         return isEqual;

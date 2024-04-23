@@ -10,7 +10,7 @@ public class MainClass {
     public static Map<Integer, String> colorMap;    // Цвет
     public static Map<Integer, Double> screenMap;   // Диаметр экрана
     public static Map<Integer, String> manufacterMap;   // Производитель
-    public static Map<String, String> ModelMap;         // Модель
+    public static Map<String, String> modelMap;         // Модель
     public static Map<Integer, String> filter;      // Фильтр
     public static Map<Integer, Notebook> notebooks; // Список ноутбуков
     public static Map<Integer, String> parameterMap;    // Параметры для поиска
@@ -58,40 +58,39 @@ public class MainClass {
         manufacterMap.put(3, "LENOVO");
         manufacterMap.put(4, "DEXP");
         // Модели
-        ModelMap = new HashMap<>();
+        modelMap = new HashMap<>();
         // Модели ASUS
-        ModelMap.putIfAbsent("as1827", "ASUS");
-        ModelMap.putIfAbsent("as1417", "ASUS");
-        ModelMap.putIfAbsent("as2518", "ASUS");
+        modelMap.putIfAbsent("as1827", "ASUS");
+        modelMap.putIfAbsent("as1417", "ASUS");
+        modelMap.putIfAbsent("as2518", "ASUS");
         // Модели ASER
-        ModelMap.putIfAbsent("ar243", "ASER");
-        ModelMap.putIfAbsent("ar118", "ASER");
-        ModelMap.putIfAbsent("ar553", "ASER");
+        modelMap.putIfAbsent("ar243", "ASER");
+        modelMap.putIfAbsent("ar118", "ASER");
+        modelMap.putIfAbsent("ar553", "ASER");
         // Модели LENOVO
-        ModelMap.putIfAbsent("l5646", "LENOVO");
-        ModelMap.putIfAbsent("l2426", "LENOVO");
-        ModelMap.putIfAbsent("l5614", "LENOVO");
+        modelMap.putIfAbsent("l5646", "LENOVO");
+        modelMap.putIfAbsent("l2426", "LENOVO");
+        modelMap.putIfAbsent("l5614", "LENOVO");
         // Модели DEXP
-        ModelMap.putIfAbsent("d145", "DEXP");
-        ModelMap.putIfAbsent("d314", "DEXP");
-        ModelMap.putIfAbsent("d777", "DEXP");
+        modelMap.putIfAbsent("d145", "DEXP");
+        modelMap.putIfAbsent("d314", "DEXP");
+        modelMap.putIfAbsent("d777", "DEXP");
         // HashMap для фильтрации
         filter = new HashMap<>();
         filter.put(0, "Показать все");
         filter.put(1, "ОЗУ");
         filter.put(2, "Объём ЖД");
         filter.put(3, "Операционная система");
-        filter.put(4, "Диагональ экрана");
-        filter.put(5, "Модель");
-        filter.put(6, "Применить параметры");
+        filter.put(4, "Цвет");
+        filter.put(5, "Диагональ экрана");
+        filter.put(6, "Модель");
+        filter.put(7, "Применить параметры");
 
         notebooks = createNotebookList();   // Создание списка ноутбуков
         parameterMap = new HashMap<>();     // Список параметров
         resultMap = new HashMap<>();        // Результат поиска
-        //parameterMap.put(1, "4");
-        //printNotebooks();
         selectSearchParameters();
-        //printAllNotebooks();
+        printAllParameters();
     }
 
     // Создание списка ноутбуков
@@ -143,6 +142,7 @@ public class MainClass {
 
     // Выбрать параметры для поиска
     public static void selectSearchParameters() {
+        System.out.println();
         Scanner scanner = new Scanner(System.in, "ibm866");
         boolean isSetParameters = true;
        while (isSetParameters) {
@@ -165,7 +165,22 @@ public class MainClass {
                  //selectSearchParameters();
                  //printNotebooks();;
                  break;
+            case 2:
+                selectHDD();
+                break;
+            case 3:
+                selectOS();
+                break;
+            case 4:
+                selectColor();
+                break;
+            case 5:
+                selectScreenDiag();
+                break;
             case 6:
+                selectManufacter();
+                break;
+            case 7:
                 setResult();
                 printNotebooks();
                 isSetParameters = false;
@@ -180,6 +195,8 @@ public class MainClass {
 
     // Вывод на экран полного списка ноутбуков
     public static void printAllNotebooks() {
+        System.out.println();
+        System.out.println("Список всех ноутбуков");
         for (Integer note : notebooks.keySet()) {
             System.out.printf("%d - %s\n", note, notebooks.get(note).toString());
         }
@@ -187,23 +204,25 @@ public class MainClass {
 
     // Вывод на экран списка ноутбуков
     public static void printNotebooks() {
+        System.out.println();
+        System.out.println("Список ноутбуков по выбранным параметрам:");
         for (Integer note : resultMap.keySet()) {
             System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
         }
     }
 
     public static void setResult() {
+        Integer i = 0;
         for (Integer note : notebooks.keySet()) {
-            int i = 0;
             if (notebooks.get(note).isInclude(parameterMap)) {
-                i++;
-                resultMap.put(i, notebooks.get(note));
+                resultMap.put(++i, notebooks.get(note));
             }
         }
     }
 
     // Выбор ОЗУ
     public static void selectRAM() {
+        System.out.println();
         System.out.println("Выберите минимальный объём ОЗУ:");
         System.out.println("\n0 - Назад");
         for (Integer num : ramMap.keySet()) {
@@ -215,6 +234,127 @@ public class MainClass {
             return;
         }
         parameterMap.put(1, Integer.toString(ramMap.get(param)));
+    }
 
+    // Выбор Объёма жёсткого диска
+    public static void selectHDD() {
+        System.out.println();
+        System.out.println("Выберите минимальный объём ЖД:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : hddMap.keySet()) {
+            System.out.printf("%d - %d ГБ\n", num, hddMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(2, Integer.toString(hddMap.get(param)));
+    }
+
+    // Выбор ОС
+    public static void selectOS() {
+        System.out.println();
+        System.out.println("Выберите операционную систему:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : osMap.keySet()) {
+            System.out.printf("%d - %s\n", num, osMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(3, osMap.get(param));
+    }
+
+    // Выбор цвета
+    public static void selectColor() {
+        System.out.println();
+        System.out.println("Выберите цвет:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : colorMap.keySet()) {
+            System.out.printf("%d - %s\n", num, colorMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(4, colorMap.get(param));
+    }
+
+    // Выбор диагонали экрана
+    public static void selectScreenDiag() {
+        System.out.println();
+        System.out.println("Выберите минимальную диагональ экрана:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : screenMap.keySet()) {
+            System.out.printf("%d - %f \"\n", num, screenMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(5, Double.toString(screenMap.get(param)));
+    }
+
+    // Выбор Производителя
+    public static void selectManufacter() {
+        System.out.println();
+        System.out.println("Выберите производителя:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : manufacterMap.keySet()) {
+            System.out.printf("%d - %s\n", num, manufacterMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(6, manufacterMap.get(param));
+        selectModel();
+    }
+
+    // Выбор модели
+    public static void selectModel() {
+        System.out.println();
+        Map<Integer, String> newMap = new HashMap<>();
+        int i = 0;
+        System.out.println("Выберите модель:");
+        System.out.println("\n0 - Назад");
+        for (String model : modelMap.keySet()) {
+            if (modelMap.get(model).equals(parameterMap.get(6))) {
+                newMap.put(++i, model);
+                System.out.printf("%d - %s\n", i, model);
+            }
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(7, newMap.get(param));
+    }
+
+    // Вывод полного списка параметров выбранного ноутбука
+    public static void printAllParameters() {
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        //boolean doesShow = true;
+        while (true) {
+            System.out.println();
+            System.out.println("Введите номер ноутбука из указанного списка для просмотра параметров:");
+            System.out.println("0 - Назад");
+            for (Integer note : resultMap.keySet()) {
+                System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+            }
+            int number = Integer.parseInt(scanner.nextLine());
+            if (number == 0) {
+                return;
+            }
+            resultMap.get(number).printInfo();
+        }
+        
     }
 }
