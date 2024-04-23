@@ -99,7 +99,7 @@ public class MainClass {
         15.0, "DEXP", "d145");
         Notebook notebook11 = new Notebook(4, 256, "Без ОС", "Серый", 
         17.0, "DEXP", "d314");
-        Notebook notebook12 = new Notebook(8, 512, "Dos", "Чёрный", 
+        Notebook notebook12 = new Notebook(8, 512, "Linux", "Чёрный", 
         15.0, "DEXP", "d777");
     }
 
