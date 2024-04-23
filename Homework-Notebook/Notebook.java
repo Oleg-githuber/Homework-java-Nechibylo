@@ -57,11 +57,11 @@ public class Notebook {
         System.out.println("Ноутбук:");
         System.out.printf("Производитель: %S\n", manufacterName);
         System.out.printf("Модель: %S\n", model);
-        System.out.printf("ОЗУ: %d\n ГБ", ram);
-        System.out.printf("Объём жёсткого диска: %d\n ГБ", hdd);
+        System.out.printf("ОЗУ: %d ГБ\n", ram);
+        System.out.printf("Объём жёсткого диска: %d ГБ\n", hdd);
         System.out.printf("Операционная система: %S\n", os);
         System.out.printf("Цвет: %S\n", color);
-        System.out.printf("Диагональ экрана: %S\n \"", color);
+        System.out.printf("Диагональ экрана: %.1f \"\n", sceenDiag);
     }
 
     // Создание Хеш-кода по параметрам ноутбука

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -89,8 +88,8 @@ public class MainClass {
         notebooks = createNotebookList();   // Создание списка ноутбуков
         parameterMap = new HashMap<>();     // Список параметров
         resultMap = new HashMap<>();        // Результат поиска
-        selectSearchParameters();
-        printAllParameters();
+        selectSearchParameters();           // Применить параметры фильтра
+        printAllParameters();           // Вывод всех параметров выбранного ноутбука
     }
 
     // Создание списка ноутбуков
@@ -145,45 +144,40 @@ public class MainClass {
         System.out.println();
         Scanner scanner = new Scanner(System.in, "ibm866");
         boolean isSetParameters = true;
-       while (isSetParameters) {
-         System.out.println("Выберите параметры для поиска:");
+       while (isSetParameters) {    // Цикл для примения нескольких фильтров
+         System.out.println("Введите цифру, соответствующую выбранному параметру:");
+         // Перечень параметров
          for (Integer elem : filter.keySet()) {
              System.out.printf("%d - %s\n", elem, filter.get(elem));
          }
-         //Scanner scanner = new Scanner(System.in, "ibm866");
          int paramNumber = Integer.parseInt(scanner.nextLine());
-         //scanner.close();
          switch (paramNumber) {
              case 0:
-                 printAllNotebooks();
-                 isSetParameters = false;
+                 printAllNotebooks();   // Вывод списка всех созданных ноутбуков
+                 isSetParameters = false;   // Выход из цикла
                  break;
              case 1:
-                 //parameterMap.put(1, Integer.toString(selectRAM(scanner)));
-                 selectRAM();
-                 //scanner.reset();
-                 //selectSearchParameters();
-                 //printNotebooks();;
+                 selectRAM();   // Фильтрация по параметру ОЗУ
                  break;
             case 2:
-                selectHDD();
+                selectHDD();    // Фильтрация по объёму ЖД
                 break;
             case 3:
-                selectOS();
+                selectOS(); // Фильрация по ОС
                 break;
             case 4:
-                selectColor();
+                selectColor();  // Фильтрация по цвету
                 break;
             case 5:
-                selectScreenDiag();
+                selectScreenDiag(); // Фильтрация по диагонали экрана
                 break;
             case 6:
-                selectManufacter();
+                selectManufacter();     // Фильтрация по производителю и модели
                 break;
             case 7:
-                setResult();
-                printNotebooks();
-                isSetParameters = false;
+                setResult();        // Применение результатов в новом HashMap
+                printNotebooks();   // Вывод отфильтрованного перечня ноутбуков
+                isSetParameters = false;    // Выход из цикла
                 break;
          
              default:
@@ -211,6 +205,7 @@ public class MainClass {
         }
     }
 
+    // Добавление ноутбуков, соответствующих фильтру, в новый HashMap
     public static void setResult() {
         Integer i = 0;
         for (Integer note : notebooks.keySet()) {
