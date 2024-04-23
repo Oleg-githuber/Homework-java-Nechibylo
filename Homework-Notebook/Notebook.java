@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Notebook {
     private int ram;    // Объём ОЗУ
     private int hdd;    // Объём ЖД
@@ -39,5 +41,29 @@ public class Notebook {
     }
     public String getModel() {
         return model;
+    }
+
+    // Вывод краткой информации о ноутбуке
+    @Override
+    public String toString() {
+        return "Модель: " + manufacterName + " - " + model;
+    }
+
+    // Вывод на экран полной информации о ноутбуке
+    public void printInfo() {
+        System.out.println("Ноутбук:");
+        System.out.printf("Производитель: %S\n", manufacterName);
+        System.out.printf("Модель: %S\n", model);
+        System.out.printf("ОЗУ: %d\n ГБ", ram);
+        System.out.printf("Объём жёсткого диска: %d\n ГБ", hdd);
+        System.out.printf("Операционная система: %S\n", os);
+        System.out.printf("Цвет: %S\n", color);
+        System.out.printf("Диагональ экрана: %S\n \"", color);
+    }
+
+    // Создание Хеш-кода по параметрам ноутбука
+    @Override
+    public int hashCode() {
+        return Objects.hash(ram, hdd, os, color, sceenDiag, manufacterName, model);
     }
 }
