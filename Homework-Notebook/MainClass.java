@@ -4,46 +4,61 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MainClass {
+    public static Map<Integer, Integer> ramMap; // ОЗУ
+    public static Map<Integer, Integer> hddMap; // объём ЖД
+    public static Map<Integer, String> osMap;   // ОС
+    public static Map<Integer, String> colorMap;    // Цвет
+    public static Map<Integer, Double> screenMap;   // Диаметр экрана
+    public static Map<Integer, String> manufacterMap;   // Производитель
+    public static Map<String, String> ModelMap;         // Модель
+    public static Map<Integer, String> filter;      // Фильтр
+    public static Map<Integer, Notebook> notebooks; // Список ноутбуков
+    public static Map<Integer, String> parameterMap;    // Параметры для поиска
+    public static Map<Integer, Notebook> resultMap;       // Результат поиска
+
+
+
     public static void main(String[] args) {
         // Значения для выбора из списка при фильтрации поиска
         // ОЗУ
-        Map<Integer, Integer> ramMap = new HashMap<>();
+        ramMap = new HashMap<>();
         ramMap.put(1, 4);
         ramMap.put(2, 8);
         ramMap.put(3, 16);
         ramMap.put(4, 32);
         // Объём ЖД
-        Map<Integer, Integer> hddMap = new HashMap<>();
+        hddMap = new HashMap<>();
         hddMap.put(1, 256);
         hddMap.put(2, 512);
         hddMap.put(3, 1024);
         hddMap.put(4, 2048);
         // Операционная система
-        Map<Integer, String> osMap = new HashMap<>();
+        osMap = new HashMap<>();
         osMap.put(1, "Без ОС");
         osMap.put(2, "Dos");
         osMap.put(3, "Windoes");
         osMap.put(4, "Linux");
         // Цвет
-        Map<Integer, String> colorMap = new HashMap<>();
+        colorMap = new HashMap<>();
         colorMap.put(1, "Чёрный");
         colorMap.put(2, "Белый");
         colorMap.put(3, "Серый");
         colorMap.put(4, "Синий");
         colorMap.put(5, "Красный");
         // Диагональ экрана
-        Map<Integer, Double> screenMap = new HashMap<>();
+        screenMap = new HashMap<>();
         screenMap.put(1, 12.0);
         screenMap.put(2, 14.5);
         screenMap.put(3, 15.0);
         screenMap.put(4, 17.0);
         // Производитель
-        Map<Integer, String> manufacterMap = new HashMap<>();
+        manufacterMap = new HashMap<>();
         manufacterMap.put(1, "ASUS");
         manufacterMap.put(2, "ASER");
         manufacterMap.put(3, "LENOVO");
         manufacterMap.put(4, "DEXP");
-        Map<String, String> ModelMap = new HashMap<>();
+        // Модели
+        ModelMap = new HashMap<>();
         // Модели ASUS
         ModelMap.putIfAbsent("as1827", "ASUS");
         ModelMap.putIfAbsent("as1417", "ASUS");
@@ -61,23 +76,31 @@ public class MainClass {
         ModelMap.putIfAbsent("d314", "DEXP");
         ModelMap.putIfAbsent("d777", "DEXP");
         // HashMap для фильтрации
-        Map<Integer, String> filter = new HashMap<>();
+        filter = new HashMap<>();
         filter.put(0, "Показать все");
         filter.put(1, "ОЗУ");
         filter.put(2, "Объём ЖД");
         filter.put(3, "Операционная система");
         filter.put(4, "Диагональ экрана");
         filter.put(5, "Модель");
+        filter.put(6, "Применить параметры");
 
-        Map<Integer, Notebook> notebooks = createNotebookList();   // Создание списка ноутбуков
+        notebooks = createNotebookList();   // Создание списка ноутбуков
+        parameterMap = new HashMap<>();     // Список параметров
+        resultMap = new HashMap<>();        // Результат поиска
+        //parameterMap.put(1, "4");
+        //printNotebooks();
+        selectSearchParameters();
+        //printAllNotebooks();
     }
 
     // Создание списка ноутбуков
     public static Map<Integer, Notebook> createNotebookList() {
         Map<Integer, Notebook> lst = new HashMap<>();
+        //notebooks = new HashMap<>();
         Notebook notebook1 = new Notebook(4, 512, "Windows", "Чёрный", 
         14.5, "ASUS", "as1827");
-        lst.put(1, notebook1)
+        lst.put(1, notebook1);
         Notebook notebook2 = new Notebook(8, 512, "Windows", "Чёрный", 
         15.0, "ASUS", "as1417");
         lst.put(2, notebook2);
@@ -117,4 +140,81 @@ public class MainClass {
         return lst;
     }
 
+
+    // Выбрать параметры для поиска
+    public static void selectSearchParameters() {
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        boolean isSetParameters = true;
+       while (isSetParameters) {
+         System.out.println("Выберите параметры для поиска:");
+         for (Integer elem : filter.keySet()) {
+             System.out.printf("%d - %s\n", elem, filter.get(elem));
+         }
+         //Scanner scanner = new Scanner(System.in, "ibm866");
+         int paramNumber = Integer.parseInt(scanner.nextLine());
+         //scanner.close();
+         switch (paramNumber) {
+             case 0:
+                 printAllNotebooks();
+                 isSetParameters = false;
+                 break;
+             case 1:
+                 //parameterMap.put(1, Integer.toString(selectRAM(scanner)));
+                 selectRAM();
+                 //scanner.reset();
+                 //selectSearchParameters();
+                 //printNotebooks();;
+                 break;
+            case 6:
+                setResult();
+                printNotebooks();
+                isSetParameters = false;
+                break;
+         
+             default:
+                 break;
+         }
+       }
+       scanner.close();
+    }
+
+    // Вывод на экран полного списка ноутбуков
+    public static void printAllNotebooks() {
+        for (Integer note : notebooks.keySet()) {
+            System.out.printf("%d - %s\n", note, notebooks.get(note).toString());
+        }
+    }
+
+    // Вывод на экран списка ноутбуков
+    public static void printNotebooks() {
+        for (Integer note : resultMap.keySet()) {
+            System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+        }
+    }
+
+    public static void setResult() {
+        for (Integer note : notebooks.keySet()) {
+            int i = 0;
+            if (notebooks.get(note).isInclude(parameterMap)) {
+                i++;
+                resultMap.put(i, notebooks.get(note));
+            }
+        }
+    }
+
+    // Выбор ОЗУ
+    public static void selectRAM() {
+        System.out.println("Выберите минимальный объём ОЗУ:");
+        System.out.println("\n0 - Назад");
+        for (Integer num : ramMap.keySet()) {
+            System.out.printf("%d - %d ГБ\n", num, ramMap.get(num));
+        }
+        Scanner scanner = new Scanner(System.in, "ibm866");
+        int param = Integer.parseInt(scanner.nextLine());
+        if (param == 0) {
+            return;
+        }
+        parameterMap.put(1, Integer.toString(ramMap.get(param)));
+
+    }
 }

@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Notebook {
@@ -46,7 +48,7 @@ public class Notebook {
     // Вывод краткой информации о ноутбуке
     @Override
     public String toString() {
-        return "Модель: " + manufacterName + " - " + model;
+        return manufacterName + " - " + model;
     }
 
     // Вывод на экран полной информации о ноутбуке
@@ -65,5 +67,46 @@ public class Notebook {
     @Override
     public int hashCode() {
         return Objects.hash(ram, hdd, os, color, sceenDiag, manufacterName, model);
+    }
+
+    public Map<Integer, String> createParamMap() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, Integer.toString(ram));
+        map.put(2, Integer.toString(hdd));
+        map.put(3, os);
+        map.put(4, color);
+        map.put(5, Double.toString(sceenDiag));
+        map.put(6, manufacterName);
+        map.put(7, model);
+        return map;
+    }
+
+    
+    public boolean isInclude(Map<Integer, String> obj) {
+        // if (this == obj) {
+        //     return true;
+        // }
+        // if (obj == null || getClass() != obj.getClass()) {
+        //     return false;
+        // }
+        //Notebook notebook = (Notebook) obj;
+        boolean isEqual = true;
+        Map<Integer, String> map = createParamMap();
+        //Map<Integer, String> map2 = notebook.createParamMap();
+        for (Integer param : obj.keySet()) {
+            if ((obj.get(param) != null) && !(obj.get(param).equals(map.get(param)))) {
+                isEqual = false;
+            }
+        }
+        if ((obj.get(1) != null) && (Integer.parseInt(obj.get(1)) <= ram)) {
+            isEqual = true;
+        }
+        if ((obj.get(2) != null) && (Integer.parseInt(obj.get(2)) <= hdd)) {
+            isEqual = true;
+        }
+        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(2)) <= sceenDiag)) {
+            isEqual = true;
+        }
+        return isEqual;
     }
 }
