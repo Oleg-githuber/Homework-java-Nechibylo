@@ -53,6 +53,7 @@ public class Notebook {
 
     // Вывод на экран полной информации о ноутбуке
     public void printInfo() {
+        System.out.println();
         System.out.println("Ноутбук:");
         System.out.printf("Производитель: %S\n", manufacterName);
         System.out.printf("Модель: %S\n", model);

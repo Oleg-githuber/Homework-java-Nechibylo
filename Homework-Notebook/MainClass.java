@@ -190,7 +190,7 @@ public class MainClass {
                  break;
          }
        }
-       scanner.close();
+       //scanner.close();
     }
 
     // Вывод на экран полного списка ноутбуков
