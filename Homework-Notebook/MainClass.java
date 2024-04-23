@@ -218,7 +218,7 @@ public class MainClass {
     // Выбор ОЗУ
     public static void selectRAM() {
         System.out.println();
-        System.out.println("Выберите минимальный объём ОЗУ:");
+        System.out.println("Введите цифру, соответствующую минимальному объёму ОЗУ:");
         System.out.println("\n0 - Назад");
         for (Integer num : ramMap.keySet()) {
             System.out.printf("%d - %d ГБ\n", num, ramMap.get(num));
@@ -234,7 +234,7 @@ public class MainClass {
     // Выбор Объёма жёсткого диска
     public static void selectHDD() {
         System.out.println();
-        System.out.println("Выберите минимальный объём ЖД:");
+        System.out.println("Введите цифру, соответствующую минимальному объёму ЖД:");
         System.out.println("\n0 - Назад");
         for (Integer num : hddMap.keySet()) {
             System.out.printf("%d - %d ГБ\n", num, hddMap.get(num));
@@ -250,7 +250,7 @@ public class MainClass {
     // Выбор ОС
     public static void selectOS() {
         System.out.println();
-        System.out.println("Выберите операционную систему:");
+        System.out.println("Введите цифру, соответствующую операционной системе:");
         System.out.println("\n0 - Назад");
         for (Integer num : osMap.keySet()) {
             System.out.printf("%d - %s\n", num, osMap.get(num));
@@ -266,7 +266,7 @@ public class MainClass {
     // Выбор цвета
     public static void selectColor() {
         System.out.println();
-        System.out.println("Выберите цвет:");
+        System.out.println("Введите цифру, соответствующую цвету:");
         System.out.println("\n0 - Назад");
         for (Integer num : colorMap.keySet()) {
             System.out.printf("%d - %s\n", num, colorMap.get(num));
@@ -282,7 +282,7 @@ public class MainClass {
     // Выбор диагонали экрана
     public static void selectScreenDiag() {
         System.out.println();
-        System.out.println("Выберите минимальную диагональ экрана:");
+        System.out.println("Введите цифру, соответствующую минимальной диагонали экрана:");
         System.out.println("\n0 - Назад");
         for (Integer num : screenMap.keySet()) {
             System.out.printf("%d - %f \"\n", num, screenMap.get(num));
@@ -298,7 +298,7 @@ public class MainClass {
     // Выбор Производителя
     public static void selectManufacter() {
         System.out.println();
-        System.out.println("Выберите производителя:");
+        System.out.println("Введите цифру, соответствующую производителю:");
         System.out.println("\n0 - Назад");
         for (Integer num : manufacterMap.keySet()) {
             System.out.printf("%d - %s\n", num, manufacterMap.get(num));
@@ -317,7 +317,7 @@ public class MainClass {
         System.out.println();
         Map<Integer, String> newMap = new HashMap<>();
         int i = 0;
-        System.out.println("Выберите модель:");
+        System.out.println("Введите цифру, соответствующую модели:");
         System.out.println("\n0 - Назад");
         for (String model : modelMap.keySet()) {
             if (modelMap.get(model).equals(parameterMap.get(6))) {

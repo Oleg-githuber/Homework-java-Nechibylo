@@ -86,20 +86,28 @@ public class Notebook {
     public boolean isInclude(Map<Integer, String> obj) {
         boolean isEqual = true;
         Map<Integer, String> map = createParamMap();
-        //Map<Integer, String> map2 = notebook.createParamMap();
         for (Integer param : obj.keySet()) {
-            if ((obj.get(param) != null) && !(obj.get(param).equals(map.get(param)))) {
+            if ((obj.get(param) != null) && (param !=1) && (param !=2) && (param !=5) && !(obj.get(param).equals(map.get(param)))) {
                 isEqual = false;
             }
         }
-        if ((obj.get(1) != null) && (Integer.parseInt(obj.get(1)) <= ram)) {
-            isEqual = true;
+        // if ((obj.get(3) != null) && (obj.get(3).equals(os)) && 
+        // (obj.get(4) != null) && (obj.get(4).equals(color)) && 
+        // (obj.get(6) != null) && (obj.get(6).equals(manufacterName)) && 
+        // (obj.get(7) != null) && (obj.get(7).equals(model) && 
+        // (obj.get(1) != null) && (Integer.parseInt(obj.get(1)) <= ram) && 
+        // (obj.get(2) != null) && (Integer.parseInt(obj.get(2)) <= hdd) && 
+        // (obj.get(5) != null) && (Double.parseDouble(obj.get(5)) <= sceenDiag)) {
+        //     return true;
+        // }
+        if ((obj.get(1) != null) && (Integer.parseInt(obj.get(1)) > ram)) {
+            isEqual = false;
         }
-        if ((obj.get(2) != null) && (Integer.parseInt(obj.get(2)) <= hdd)) {
-            isEqual = true;
+        if ((obj.get(2) != null) && (Integer.parseInt(obj.get(2)) > hdd)) {
+            isEqual = false;
         }
-        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(5)) <= sceenDiag)) {
-            isEqual = true;
+        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(5)) > sceenDiag)) {
+            isEqual = false;
         }
         return isEqual;
     }
