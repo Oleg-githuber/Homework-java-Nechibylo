@@ -84,20 +84,19 @@ public class Notebook {
 
     // Проверяем, включать ли ноутбук в новый перечень
     public boolean isInclude(Map<Integer, String> obj) {
-        boolean isEqual = true;
         Map<Integer, String> map = createParamMap();
         for (Integer param : obj.keySet()) {
-            if (obj.get(param) != null) {
-                if ((param !=1) && (param !=2) && (param !=5)) {
-                    if (obj.get(param).equals(map.get(param))) {
+            if (obj.get(param) != null) {   // Если параметр указан
+                if ((param !=1) && (param !=2) && (param !=5)) {    // Если параметр текстовый
+                    if (obj.get(param).equals(map.get(param))) {    // проверяем неравенство
                         return false;
                     }
-                } else if (param != 5) {
-                    if (Integer.parseInt(obj.get(param)) > Integer.parseInt(map.get(param))) {
+                } else if (param != 5) {    // Если параметр целочисленный
+                    if (Integer.parseInt(obj.get(param)) > Integer.parseInt(map.get(param))) {  // проверяем неравенство
                         return false;
                     }
-                } else {
-                    if (Double.parseDouble(obj.get(5)) > sceenDiag) {
+                } else {    // Если параметр с плавающей запятой
+                    if (Double.parseDouble(obj.get(5)) > sceenDiag) {   // Проверяем неравенство
                         return false;
                     }
                 }

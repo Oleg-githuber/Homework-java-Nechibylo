@@ -154,7 +154,6 @@ public class MainClass {
          switch (paramNumber) {
              case 0:
                  printAllNotebooks();   // Вывод списка всех созданных ноутбуков
-                 printAllParameters();           // Вывод всех параметров выбранного ноутбука
                  break;
              case 1:
                  selectRAM();   // Фильтрация по параметру ОЗУ
