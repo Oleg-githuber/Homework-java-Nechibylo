@@ -154,6 +154,7 @@ public class MainClass {
          switch (paramNumber) {
              case 0:
                  printAllNotebooks();   // Вывод списка всех созданных ноутбуков
+                 printAllParameters(paramNumber);           // Вывод всех параметров выбранного ноутбука
                  break;
              case 1:
                  selectRAM();   // Фильтрация по параметру ОЗУ
@@ -176,7 +177,7 @@ public class MainClass {
             case 7:
                 setResult();        // Применение результатов в новом HashMap
                 printNotebooks();   // Вывод отфильтрованного перечня ноутбуков
-                printAllParameters();           // Вывод всех параметров выбранного ноутбука
+                printAllParameters(paramNumber);           // Вывод всех параметров выбранного ноутбука
                 break;
             case 8:
                 return;         // Завершение программы
@@ -356,20 +357,36 @@ public class MainClass {
     }
 
     // Вывод полного списка параметров выбранного ноутбука
-    public static void printAllParameters() {
+    public static void printAllParameters(int paramNumber) {
         Scanner scanner = new Scanner(System.in, "ibm866");
-        while (true) {
-            System.out.println();
-            System.out.println("Введите номер ноутбука из указанного списка для просмотра параметров:");
-            System.out.println("0 - Назад");
-            for (Integer note : resultMap.keySet()) {
-                System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+        if (paramNumber == 7) {
+            while (true) {
+                System.out.println();
+                System.out.println("Введите номер ноутбука из указанного списка для просмотра параметров:");
+                System.out.println("0 - Назад");
+                for (Integer note : resultMap.keySet()) {
+                    System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+                }
+                int number = Integer.parseInt(scanner.nextLine());
+                if (number == 0) {
+                    return;
+                }
+                resultMap.get(number).printInfo();
             }
-            int number = Integer.parseInt(scanner.nextLine());
-            if (number == 0) {
-                return;
+        } else if (paramNumber == 0) {
+            while (true) {
+                System.out.println();
+                System.out.println("Введите номер ноутбука из указанного списка для просмотра параметров:");
+                System.out.println("0 - Назад");
+                for (Integer note : notebooks.keySet()) {
+                    System.out.printf("%d - %s\n", note, notebooks.get(note).toString());
+                }
+                int number = Integer.parseInt(scanner.nextLine());
+                if (number == 0) {
+                    return;
+                }
+                notebooks.get(number).printInfo();
             }
-            resultMap.get(number).printInfo();
         }
         
     }

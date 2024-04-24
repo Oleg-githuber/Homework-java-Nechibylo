@@ -88,7 +88,7 @@ public class Notebook {
         for (Integer param : obj.keySet()) {
             if (obj.get(param) != null) {   // Если параметр указан
                 if ((param !=1) && (param !=2) && (param !=5)) {    // Если параметр текстовый
-                    if (obj.get(param).equals(map.get(param))) {    // проверяем неравенство
+                    if (!obj.get(param).equals(map.get(param))) {    // проверяем неравенство
                         return false;
                     }
                 } else if (param != 5) {    // Если параметр целочисленный
