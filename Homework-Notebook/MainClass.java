@@ -180,7 +180,7 @@ public class MainClass {
                 printAllParameters();           // Вывод всех параметров выбранного ноутбука
                 break;
             case 8:
-                return;
+                return;         // Завершение программы
          
              default:
                  break;
