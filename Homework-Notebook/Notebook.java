@@ -82,33 +82,27 @@ public class Notebook {
         return map;
     }
 
-    
+    // Проверяем, включать ли ноутбук в новый перечень
     public boolean isInclude(Map<Integer, String> obj) {
         boolean isEqual = true;
         Map<Integer, String> map = createParamMap();
         for (Integer param : obj.keySet()) {
-            if ((obj.get(param) != null) && (param !=1) && (param !=2) && (param !=5) && !(obj.get(param).equals(map.get(param)))) {
-                isEqual = false;
+            if (obj.get(param) != null) {
+                if ((param !=1) && (param !=2) && (param !=5)) {
+                    if (obj.get(param).equals(map.get(param))) {
+                        return false;
+                    }
+                } else if (param != 5) {
+                    if (Integer.parseInt(obj.get(param)) > Integer.parseInt(map.get(param))) {
+                        return false;
+                    }
+                } else {
+                    if (Double.parseDouble(obj.get(5)) > sceenDiag) {
+                        return false;
+                    }
+                }
             }
         }
-        // if ((obj.get(3) != null) && (obj.get(3).equals(os)) && 
-        // (obj.get(4) != null) && (obj.get(4).equals(color)) && 
-        // (obj.get(6) != null) && (obj.get(6).equals(manufacterName)) && 
-        // (obj.get(7) != null) && (obj.get(7).equals(model) && 
-        // (obj.get(1) != null) && (Integer.parseInt(obj.get(1)) <= ram) && 
-        // (obj.get(2) != null) && (Integer.parseInt(obj.get(2)) <= hdd) && 
-        // (obj.get(5) != null) && (Double.parseDouble(obj.get(5)) <= sceenDiag)) {
-        //     return true;
-        // }
-        if ((obj.get(1) != null) && (Integer.parseInt(obj.get(1)) > ram)) {
-            isEqual = false;
-        }
-        if ((obj.get(2) != null) && (Integer.parseInt(obj.get(2)) > hdd)) {
-            isEqual = false;
-        }
-        if ((obj.get(5) != null) && (Double.parseDouble(obj.get(5)) > sceenDiag)) {
-            isEqual = false;
-        }
-        return isEqual;
+        return true;
     }
 }

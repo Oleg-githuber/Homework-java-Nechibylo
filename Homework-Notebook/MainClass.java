@@ -84,12 +84,13 @@ public class MainClass {
         filter.put(5, "Диагональ экрана");
         filter.put(6, "Модель");
         filter.put(7, "Применить параметры");
+        filter.put(8, "Завершить программу");
 
         notebooks = createNotebookList();   // Создание списка ноутбуков
         parameterMap = new HashMap<>();     // Список параметров
         resultMap = new HashMap<>();        // Результат поиска
         selectSearchParameters();           // Применить параметры фильтра
-        printAllParameters();           // Вывод всех параметров выбранного ноутбука
+        //printAllParameters();           // Вывод всех параметров выбранного ноутбука
     }
 
     // Создание списка ноутбуков
@@ -143,8 +144,7 @@ public class MainClass {
     public static void selectSearchParameters() {
         System.out.println();
         Scanner scanner = new Scanner(System.in, "ibm866");
-        boolean isSetParameters = true;
-       while (isSetParameters) {    // Цикл для примения нескольких фильтров
+       while (true) {    // Цикл для примения нескольких фильтров
          System.out.println("Введите цифру, соответствующую выбранному параметру:");
          // Перечень параметров
          for (Integer elem : filter.keySet()) {
@@ -154,7 +154,7 @@ public class MainClass {
          switch (paramNumber) {
              case 0:
                  printAllNotebooks();   // Вывод списка всех созданных ноутбуков
-                 isSetParameters = false;   // Выход из цикла
+                 printAllParameters();           // Вывод всех параметров выбранного ноутбука
                  break;
              case 1:
                  selectRAM();   // Фильтрация по параметру ОЗУ
@@ -177,8 +177,10 @@ public class MainClass {
             case 7:
                 setResult();        // Применение результатов в новом HashMap
                 printNotebooks();   // Вывод отфильтрованного перечня ноутбуков
-                isSetParameters = false;    // Выход из цикла
+                printAllParameters();           // Вывод всех параметров выбранного ноутбука
                 break;
+            case 8:
+                return;
          
              default:
                  break;
@@ -217,126 +219,146 @@ public class MainClass {
 
     // Выбор ОЗУ
     public static void selectRAM() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую минимальному объёму ОЗУ:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : ramMap.keySet()) {
-            System.out.printf("%d - %d ГБ\n", num, ramMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(1, Integer.toString(ramMap.get(param)));
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую минимальному объёму ОЗУ:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : ramMap.keySet()) {
+                System.out.printf("%d - %d ГБ\n", num, ramMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(1, Integer.toString(ramMap.get(param)));
+        } while (param > ramMap.size());
     }
 
     // Выбор Объёма жёсткого диска
     public static void selectHDD() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую минимальному объёму ЖД:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : hddMap.keySet()) {
-            System.out.printf("%d - %d ГБ\n", num, hddMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(2, Integer.toString(hddMap.get(param)));
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую минимальному объёму ЖД:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : hddMap.keySet()) {
+                System.out.printf("%d - %d ГБ\n", num, hddMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(2, Integer.toString(hddMap.get(param)));
+        } while (param > hddMap.size());
     }
 
     // Выбор ОС
     public static void selectOS() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую операционной системе:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : osMap.keySet()) {
-            System.out.printf("%d - %s\n", num, osMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(3, osMap.get(param));
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую операционной системе:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : osMap.keySet()) {
+                System.out.printf("%d - %s\n", num, osMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(3, osMap.get(param));
+        } while (param > osMap.size());
     }
 
     // Выбор цвета
     public static void selectColor() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую цвету:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : colorMap.keySet()) {
-            System.out.printf("%d - %s\n", num, colorMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(4, colorMap.get(param));
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую цвету:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : colorMap.keySet()) {
+                System.out.printf("%d - %s\n", num, colorMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(4, colorMap.get(param));
+        } while (param > colorMap.size());
     }
 
     // Выбор диагонали экрана
     public static void selectScreenDiag() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую минимальной диагонали экрана:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : screenMap.keySet()) {
-            System.out.printf("%d - %f \"\n", num, screenMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(5, Double.toString(screenMap.get(param)));
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую минимальной диагонали экрана:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : screenMap.keySet()) {
+                System.out.printf("%d - %f \"\n", num, screenMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(5, Double.toString(screenMap.get(param)));
+        } while (param > screenMap.size());
     }
 
     // Выбор Производителя
     public static void selectManufacter() {
-        System.out.println();
-        System.out.println("Введите цифру, соответствующую производителю:");
-        System.out.println("\n0 - Назад");
-        for (Integer num : manufacterMap.keySet()) {
-            System.out.printf("%d - %s\n", num, manufacterMap.get(num));
-        }
         Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(6, manufacterMap.get(param));
-        selectModel();
+        int param;
+        do {
+            System.out.println();
+            System.out.println("Введите цифру, соответствующую производителю:");
+            System.out.println("\n0 - Назад");
+            for (Integer num : manufacterMap.keySet()) {
+                System.out.printf("%d - %s\n", num, manufacterMap.get(num));
+            }
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(6, manufacterMap.get(param));
+            selectModel();
+        } while (param > manufacterMap.size());
     }
 
     // Выбор модели
     public static void selectModel() {
+        Scanner scanner = new Scanner(System.in, "ibm866");
         System.out.println();
         Map<Integer, String> newMap = new HashMap<>();
         int i = 0;
-        System.out.println("Введите цифру, соответствующую модели:");
-        System.out.println("\n0 - Назад");
-        for (String model : modelMap.keySet()) {
-            if (modelMap.get(model).equals(parameterMap.get(6))) {
-                newMap.put(++i, model);
-                System.out.printf("%d - %s\n", i, model);
+        int param;
+        do {
+            System.out.println("Введите цифру, соответствующую модели:");
+            System.out.println("\n0 - Назад");
+            for (String model : modelMap.keySet()) {
+                if (modelMap.get(model).equals(parameterMap.get(6))) {
+                    newMap.put(++i, model);
+                    System.out.printf("%d - %s\n", i, model);
+                }
             }
-        }
-        Scanner scanner = new Scanner(System.in, "ibm866");
-        int param = Integer.parseInt(scanner.nextLine());
-        if (param == 0) {
-            return;
-        }
-        parameterMap.put(7, newMap.get(param));
+            param = Integer.parseInt(scanner.nextLine());
+            if (param == 0) {
+                return;
+            }
+            parameterMap.put(7, newMap.get(param));
+        } while (param > modelMap.size());
     }
 
     // Вывод полного списка параметров выбранного ноутбука
     public static void printAllParameters() {
         Scanner scanner = new Scanner(System.in, "ibm866");
-        //boolean doesShow = true;
         while (true) {
             System.out.println();
             System.out.println("Введите номер ноутбука из указанного списка для просмотра параметров:");
