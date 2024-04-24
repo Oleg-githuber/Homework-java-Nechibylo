@@ -177,7 +177,6 @@ public class MainClass {
             case 7:
                 setResult();        // Применение результатов в новом HashMap
                 printNotebooks();   // Вывод отфильтрованного перечня ноутбуков
-                printAllParameters(paramNumber);           // Вывод всех параметров выбранного ноутбука
                 break;
             case 8:
                 return;         // Завершение программы
@@ -186,7 +185,6 @@ public class MainClass {
                  break;
          }
        }
-       //scanner.close();
     }
 
     // Вывод на экран полного списка ноутбуков
@@ -201,9 +199,14 @@ public class MainClass {
     // Вывод на экран списка ноутбуков
     public static void printNotebooks() {
         System.out.println();
-        System.out.println("Список ноутбуков по выбранным параметрам:");
-        for (Integer note : resultMap.keySet()) {
-            System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+        if (!resultMap.isEmpty()) {
+            System.out.println("Список ноутбуков по выбранным параметрам:");
+            for (Integer note : resultMap.keySet()) {
+                System.out.printf("%d - %s\n", note, resultMap.get(note).toString());
+            }
+            printAllParameters(7);           // Вывод всех параметров выбранного ноутбука
+        } else {
+            System.out.println("По выбранным параметрам ноутбуков не найдено\n");
         }
     }
 
@@ -232,8 +235,8 @@ public class MainClass {
             if (param == 0) {
                 return;
             }
-            parameterMap.put(1, Integer.toString(ramMap.get(param)));
         } while (param > ramMap.size());
+        parameterMap.put(1, Integer.toString(ramMap.get(param)));
     }
 
     // Выбор Объёма жёсткого диска
@@ -265,13 +268,13 @@ public class MainClass {
             System.out.println("\n0 - Назад");
             for (Integer num : osMap.keySet()) {
                 System.out.printf("%d - %s\n", num, osMap.get(num));
-            }
+             }
             param = Integer.parseInt(scanner.nextLine());
             if (param == 0) {
-                return;
+                 return;
             }
-            parameterMap.put(3, osMap.get(param));
         } while (param > osMap.size());
+        parameterMap.put(3, osMap.get(param));
     }
 
     // Выбор цвета
@@ -289,8 +292,8 @@ public class MainClass {
             if (param == 0) {
                 return;
             }
-            parameterMap.put(4, colorMap.get(param));
         } while (param > colorMap.size());
+        parameterMap.put(4, colorMap.get(param));
     }
 
     // Выбор диагонали экрана
@@ -308,8 +311,8 @@ public class MainClass {
             if (param == 0) {
                 return;
             }
-            parameterMap.put(5, Double.toString(screenMap.get(param)));
         } while (param > screenMap.size());
+        parameterMap.put(5, Double.toString(screenMap.get(param)));
     }
 
     // Выбор Производителя
@@ -327,9 +330,9 @@ public class MainClass {
             if (param == 0) {
                 return;
             }
-            parameterMap.put(6, manufacterMap.get(param));
-            selectModel();
         } while (param > manufacterMap.size());
+        parameterMap.put(6, manufacterMap.get(param));
+        selectModel();
     }
 
     // Выбор модели
@@ -352,8 +355,8 @@ public class MainClass {
             if (param == 0) {
                 return;
             }
-            parameterMap.put(7, newMap.get(param));
         } while (param > modelMap.size());
+        parameterMap.put(7, newMap.get(param));
     }
 
     // Вывод полного списка параметров выбранного ноутбука
