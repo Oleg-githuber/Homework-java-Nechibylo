@@ -53,7 +53,7 @@ public class MainClass {
         // Производитель
         manufacterMap = new HashMap<>();
         manufacterMap.put(1, "ASUS");
-        manufacterMap.put(2, "ASER");
+        manufacterMap.put(2, "ACER");
         manufacterMap.put(3, "LENOVO");
         manufacterMap.put(4, "DEXP");
         // Модели
@@ -63,9 +63,9 @@ public class MainClass {
         modelMap.putIfAbsent("as1417", "ASUS");
         modelMap.putIfAbsent("as2518", "ASUS");
         // Модели ASER
-        modelMap.putIfAbsent("ar243", "ASER");
-        modelMap.putIfAbsent("ar118", "ASER");
-        modelMap.putIfAbsent("ar553", "ASER");
+        modelMap.putIfAbsent("ar243", "ACER");
+        modelMap.putIfAbsent("ar118", "ACER");
+        modelMap.putIfAbsent("ar553", "ACER");
         // Модели LENOVO
         modelMap.putIfAbsent("l5646", "LENOVO");
         modelMap.putIfAbsent("l2426", "LENOVO");
@@ -212,6 +212,7 @@ public class MainClass {
 
     // Добавление ноутбуков, соответствующих фильтру, в новый HashMap
     public static void setResult() {
+        resultMap.clear();
         Integer i = 0;
         for (Integer note : notebooks.keySet()) {
             if (notebooks.get(note).isInclude(parameterMap)) {
